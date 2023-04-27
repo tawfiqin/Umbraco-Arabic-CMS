@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<language alias="ar" intName="Arabic" localName="Arabic" lcid="" culture="ar-JO">
+<language alias="ar" intName="Arabic" localName="العربية" lcid="" culture="ar-JO">
   <creator>
     <name>Tawfiq abu Halawah</name>
     <link>https://github.com/tawfiqin</link>
@@ -54,15 +54,15 @@
     <key alias="translate">ترجمة</key>
     <key alias="update">تحديث</key>
     <key alias="setPermissions">تعيين الأذونات</key>
-    <key alias="unlock">Unlock الغاء القفل</key>
-    <key alias="createblueprint">Create Content Template إنشاء نموذج محتوى</key>
-    <key alias="resendInvite">Resend Invitation أعد إرسال الدعوة</key>
+    <key alias="unlock">الغاء القفل</key>
+    <key alias="createblueprint">إنشاء نموذج محتوى</key>
+    <key alias="resendInvite">أعد إرسال الدعوة</key>
   </area>
   <area alias="actionCategories">
-    <key alias="content">Content</key>
-    <key alias="administration">Administration</key>
-    <key alias="structure">Structure</key>
-    <key alias="other">Other</key>
+    <key alias="content">المحتوى</key>
+    <key alias="administration">الإدارة</key>
+    <key alias="structure">الهيكل</key>
+    <key alias="other">أخرى</key>
   </area>
   <area alias="actionDescriptions">
     <key alias="assignDomain">Allow access to assign culture and hostnames</key>
