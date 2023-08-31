@@ -166,74 +166,74 @@
     <key alias="unpublishvariant">أُلغي نشر المحتوى للغات: %0%</key>
     <key alias="publish">نُشر المحتوى</key>
     <key alias="publishvariant">نُشر المحتوى للغات: %0%</key>
-    <key alias="save">Content saved</key>
-    <key alias="savevariant">Content saved for languages: %0%</key>
-    <key alias="move">Content moved</key>
-    <key alias="copy">Content copied</key>
-    <key alias="rollback">Content rolled back</key>
-    <key alias="sendtopublish">Content sent for publishing</key>
-    <key alias="sendtopublishvariant">Content sent for publishing for languages: %0%</key>
-    <key alias="sort">Sort child items performed by user</key>
+    <key alias="save">حُفظ المحتوى</key>
+    <key alias="savevariant">حُفظ المحتوى للغات: %0% </key>
+    <key alias="move">نُقل المحتوى</key>
+    <key alias="copy">نُسخ المحتوى</key>
+    <key alias="rollback">أُعيدالمحتوى</key>
+    <key alias="sendtopublish"> أُرسل المحتوى للنشر</key>
+    <key alias="sendtopublishvariant">أُرسل المحتوى للنشر لعدة لغات: %0%</key>
+    <key alias="sort">رتبت العناصر أجري من المستخدم</key>
     <key alias="custom">%0%</key>
-    <key alias="contentversionpreventcleanup">Cleanup disabled for version: %0%</key>
-    <key alias="contentversionenablecleanup">Cleanup enabled for version: %0%</key>
-    <key alias="smallCopy">Copy</key>
-    <key alias="smallPublish">Publish</key>
-    <key alias="smallPublishVariant">Publish</key>
-    <key alias="smallMove">Move</key>
-    <key alias="smallSave">Save</key>
-    <key alias="smallSaveVariant">Save</key>
-    <key alias="smallDelete">Delete</key>
-    <key alias="smallUnpublish">Unpublish</key>
-    <key alias="smallUnpublishVariant">Unpublish</key>
-    <key alias="smallRollBack">Rollback</key>
-    <key alias="smallSendToPublish">Send To Publish</key>
-    <key alias="smallSendToPublishVariant">Send To Publish</key>
-    <key alias="smallSort">Sort</key>
-    <key alias="smallCustom">Custom</key>
-    <key alias="smallContentVersionPreventCleanup">Save</key>
-    <key alias="smallContentVersionEnableCleanup">Save</key>
-    <key alias="historyIncludingVariants">History (all variants)</key>
+    <key alias="contentversionpreventcleanup">عُطل التنظيف للنسخة:  %0%</key>
+    <key alias="contentversionenablecleanup">فُعّل التنظيف للنسخة: %0%</key>
+    <key alias="smallCopy">نسخ</key>
+    <key alias="smallPublish">نشر</key>
+    <key alias="smallPublishVariant">نشر</key>
+    <key alias="smallMove">تحريك</key>
+    <key alias="smallSave">حفظ</key>
+    <key alias="smallSaveVariant">حفظ</key>
+    <key alias="smallDelete"> حذف</key>
+    <key alias="smallUnpublish">الغاء النشر</key>
+    <key alias="smallUnpublishVariant">الغاء النشر</key>
+    <key alias="smallRollBack">تراجع</key>
+    <key alias="smallSendToPublish">أرسل إلى النشر</key>
+    <key alias="smallSendToPublishVariant">أرسل إلى النشر</key>
+    <key alias="smallSort">رتب</key>
+    <key alias="smallCustom">مخصص</key>
+    <key alias="smallContentVersionPreventCleanup">حفظ</key>
+    <key alias="smallContentVersionEnableCleanup">حفظ</key>
+    <key alias="historyIncludingVariants">السجل</key>
   </area>
   <area alias="codefile">
-    <key alias="createFolderIllegalChars">The folder name cannot contain illegal characters.</key>
-    <key alias="deleteItemFailed">Failed to delete item: %0%</key>
+    <key alias="createFolderIllegalChars">اسم المجلد يحتوي على أحرف غير مسموح بها.</key>
+    <key alias="deleteItemFailed">فشل حذف العنصر: %0%</key>
   </area>
   <area alias="content">
-    <key alias="isPublished" version="7.2">Is Published</key>
-    <key alias="about">About this page</key>
-    <key alias="alias">Alias</key>
-    <key alias="alternativeTextHelp">(how would you describe the picture over the phone)</key>
-    <key alias="alternativeUrls">Alternative Links</key>
-    <key alias="clickToEdit">Click to edit this item</key>
-    <key alias="createBy">Created by</key>
-    <key alias="createByDesc" version="7.0">Original author</key>
-    <key alias="updatedBy" version="7.0">Updated by</key>
-    <key alias="createDate">Created</key>
-    <key alias="createDateDesc" version="7.0">Date/time this document was created</key>
-    <key alias="documentType">Document Type</key>
-    <key alias="editing">Editing</key>
-    <key alias="expireDate">Remove at</key>
-    <key alias="itemChanged">This item has been changed after publication</key>
-    <key alias="itemNotPublished">This item is not published</key>
-    <key alias="lastPublished">Last published</key>
-    <key alias="noItemsToShow">There are no items to show</key>
-    <key alias="listViewNoItems" version="7.1.5">There are no items to show in the list.</key>
-    <key alias="listViewNoContent">No child items have been added</key>
-    <key alias="listViewNoMembers">No members have been added</key>
-    <key alias="mediatype">Media Type</key>
-    <key alias="mediaLinks">Link to media item(s)</key>
-    <key alias="membergroup">Member Group</key>
-    <key alias="memberrole">Role</key>
-    <key alias="membertype">Member Type</key>
-    <key alias="noChanges">No changes have been made</key>
-    <key alias="noDate">No date chosen</key>
-    <key alias="nodeName">Page title</key>
-    <key alias="noMediaLink">This media item has no link</key>
-    <key alias="noProperties">No content can be added for this item</key>
-    <key alias="otherElements">Properties</key>
-    <key alias="parentNotPublished">This document is published but is not visible because the parent '%0%' is
-      unpublished
+    <key alias="isPublished" version="7.2">نُشر</key>
+    <key alias="about">عن هذه الصفحة</key>
+    <key alias="alias">اسم مستعار</key>
+    <key alias="alternativeTextHelp">(كيف تصف هذه الصورة بالكلمات) </key>
+    <key alias="alternativeUrls">روابط بديلة</key>
+    <key alias="clickToEdit">انقر لتعديل هذا العنصر</key>
+    <key alias="createBy">إنشئ بواسطة</key>
+    <key alias="createByDesc" version="7.0">الكاتب الأصلي</key>
+    <key alias="updatedBy" version="7.0">حُدث بواسطة</key>
+    <key alias="createDate">أنشئ</key>
+    <key alias="createDateDesc" version="7.0">تاريخ إنشاء هذا المستند</key>
+    <key alias="documentType">نوع المستند</key>
+    <key alias="editing">تحرير</key>
+    <key alias="expireDate">أزل في</key>
+    <key alias="itemChanged">هذا العنصر عُدل بعد النشر</key>
+    <key alias="itemNotPublished">هذا العنصر لم ينشر</key>
+    <key alias="lastPublished">آخر نشر</key>
+    <key alias="noItemsToShow">لا يوجد عناصر لعرضها</key>
+    <key alias="listViewNoItems" version="7.1.5">لا يوجد عناصر في هذه القائمة لعرضها.</key>
+    <key alias="listViewNoContent">لم تضف عناصر فرعية</key>
+    <key alias="listViewNoMembers">لم يضف أعضاء</key>
+    <key alias="mediatype">نوع الوسائط</key>
+    <key alias="mediaLinks">رابط إلى عناصر الوسائط</key>
+    <key alias="membergroup">مجموعة العضو</key>
+    <key alias="memberrole">دور</key>
+    <key alias="membertype">نوعية العضو</key>
+    <key alias="noChanges">لم يحدث أي تعديل</key>
+    <key alias="noDate">لم يُختر التاريخ</key>
+    <key alias="nodeName">عنوان الصفحة</key>
+    <key alias="noMediaLink">عنصر الوسائط لا يحتوي على رابط</key>
+    <key alias="noProperties">لم يُضف محتوى لهذا العنصر</key>
+    <key alias="otherElements">خصائص</key>
+    <key alias="parentNotPublished">هذا المستند نشر، ولكنه ليس مرئيا لأن أبوه '%0%' لم ينشر
+
     </key>
     <key alias="parentCultureNotPublished">This culture is published but is not visible because it is unpublished on
       parent '%0%'
