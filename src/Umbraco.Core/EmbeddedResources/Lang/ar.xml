@@ -57,20 +57,24 @@
     <key alias="unlock">الغاء القفل</key>
     <key alias="createblueprint">إنشاء قالب محتوى</key>
     <key alias="resendInvite">أعد إرسال الدعوة</key>
-    <key alias="toggleHideUnavailable">Hide unavailable options</key>
+    <key alias="toggleHideUnavailable">اخفاء العناصر الغير متوفرة</key>
   </area>
   <area alias="content">
-    <key alias="itemNotPublished">This item is not published</key>
-    <key alias="parentNotPublished">This document is published but is not visible because the parent '%0%' is
-      unpublished
+    <key alias="itemNotPublished">هذا العنصر لم ينشر</key>
+    <key alias="parentNotPublished">هذا المستند منشور ولكنه غير مرئي لأن مالكه
+     '%0%'
+      غير منشور
     </key>
-    <key alias="parentCultureNotPublished">This culture is published but is not visible because it is unpublished on
-      parent '%0%'
+    <key alias="parentCultureNotPublished">
+      هذه الثقافة منشورة ولكنها غير مرئية لأنها غير منشورة عند مالكها
+       '%0%'
     </key>
-    <key alias="parentNotPublishedAnomaly">This document is published but is not in the cache</key>
-    <key alias="getUrlException">Could not get the URL</key>
-    <key alias="routeError">This document is published but its URL would collide with content %0%</key>
-    <key alias="routeErrorCannotRoute">This document is published but its URL cannot be routed</key>
+    <key alias="parentNotPublishedAnomaly">هذا المستند منشور ولكن ليس في التخزين المؤقت</key>
+    <key alias="getUrlException">فشل في استرجاع الرابط URL</key>
+    <key alias="routeError">
+    هذا المستند منشور ولكن رابطه سيتعارض مع المحتوى
+     %0%</key>
+    <key alias="routeErrorCannotRoute">هذا المستند منشور ولكن رابطه لا يمكن إعادة تحويله</key>
   </area>
   <area alias="member">
     <key alias="duplicateMemberLogin">A member with this login already exists</key>
