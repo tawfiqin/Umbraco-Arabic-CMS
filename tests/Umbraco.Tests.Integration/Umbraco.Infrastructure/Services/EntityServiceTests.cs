@@ -9,6 +9,7 @@ using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.Entities;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Infrastructure.Persistence;
+using Umbraco.Cms.Tests.Common.Attributes;
 using Umbraco.Cms.Tests.Common.Builders;
 using Umbraco.Cms.Tests.Common.Testing;
 using Umbraco.Cms.Tests.Integration.Testing;
@@ -24,23 +25,23 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services;
 public class EntityServiceTests : UmbracoIntegrationTest
 {
     [SetUp]
-    public void SetupTestData()
+    public async Task SetupTestData()
     {
         if (_langFr == null && _langEs == null)
         {
             _langFr = new Language("fr-FR", "French (France)");
             _langEs = new Language("es-ES", "Spanish (Spain)");
-            LocalizationService.Save(_langFr);
-            LocalizationService.Save(_langEs);
+            await LanguageService.CreateAsync(_langFr, Constants.Security.SuperUserKey);
+            await LanguageService.CreateAsync(_langEs, Constants.Security.SuperUserKey);
         }
 
         CreateTestData();
     }
 
-    private Language _langFr;
-    private Language _langEs;
+    private Language? _langFr;
+    private Language? _langEs;
 
-    private ILocalizationService LocalizationService => GetRequiredService<ILocalizationService>();
+    private ILanguageService LanguageService => GetRequiredService<ILanguageService>();
 
     private IContentTypeService ContentTypeService => GetRequiredService<IContentTypeService>();
 
@@ -190,6 +191,7 @@ public class EntityServiceTests : UmbracoIntegrationTest
     }
 
     [Test]
+    [LongRunning]
     public void EntityService_Can_Get_Paged_Content_Descendants_Including_Recycled()
     {
         var contentType = ContentTypeService.Get("umbTextpage");
@@ -231,6 +233,7 @@ public class EntityServiceTests : UmbracoIntegrationTest
     }
 
     [Test]
+    [LongRunning]
     public void EntityService_Can_Get_Paged_Content_Descendants_Without_Recycled()
     {
         var contentType = ContentTypeService.Get("umbTextpage");
@@ -273,6 +276,7 @@ public class EntityServiceTests : UmbracoIntegrationTest
     }
 
     [Test]
+    [LongRunning]
     public void EntityService_Can_Get_Paged_Trashed_Content_Children()
     {
         var contentType = ContentTypeService.Get("umbTextpage");
@@ -378,6 +382,7 @@ public class EntityServiceTests : UmbracoIntegrationTest
     }
 
     [Test]
+    [LongRunning]
     public void EntityService_Can_Get_Paged_Media_Descendants()
     {
         var folderType = MediaTypeService.Get(1031);
@@ -410,6 +415,7 @@ public class EntityServiceTests : UmbracoIntegrationTest
     }
 
     [Test]
+    [LongRunning]
     public void EntityService_Can_Get_Paged_Media_Descendants_Including_Recycled()
     {
         var folderType = MediaTypeService.Get(1031);
@@ -452,6 +458,7 @@ public class EntityServiceTests : UmbracoIntegrationTest
     }
 
     [Test]
+    [LongRunning]
     public void EntityService_Can_Get_Paged_Media_Descendants_Without_Recycled()
     {
         var folderType = MediaTypeService.Get(1031);
@@ -495,6 +502,7 @@ public class EntityServiceTests : UmbracoIntegrationTest
     }
 
     [Test]
+    [LongRunning]
     public void EntityService_Can_Get_Paged_Trashed_Media_Children()
     {
         var folderType = MediaTypeService.Get(1031);
@@ -539,6 +547,7 @@ public class EntityServiceTests : UmbracoIntegrationTest
     }
 
     [Test]
+    [LongRunning]
     public void EntityService_Can_Get_Paged_Media_Descendants_With_Search()
     {
         var folderType = MediaTypeService.Get(1031);
@@ -681,8 +690,6 @@ public class EntityServiceTests : UmbracoIntegrationTest
 
         for (var i = 0; i < entities.Length; i++)
         {
-            Assert.AreEqual(0, entities[i].AdditionalData.Count);
-
             if (i % 2 == 0)
             {
                 var doc = (IDocumentEntitySlim)entities[i];
@@ -692,10 +699,6 @@ public class EntityServiceTests : UmbracoIntegrationTest
                 Assert.AreEqual("Test " + i + " - FR", vals[0]);
                 Assert.AreEqual(_langEs.IsoCode.ToLowerInvariant(), keys[1].ToLowerInvariant());
                 Assert.AreEqual("Test " + i + " - ES", vals[1]);
-            }
-            else
-            {
-                Assert.AreEqual(0, entities[i].AdditionalData.Count);
             }
         }
     }
@@ -886,7 +889,7 @@ public class EntityServiceTests : UmbracoIntegrationTest
         {
             s_isSetup = true;
 
-            var template = TemplateBuilder.CreateTextPageTemplate();
+            var template = TemplateBuilder.CreateTextPageTemplate("defaultTemplate");
             FileService.SaveTemplate(template); // else, FK violation on contentType!
 
             // Create and Save ContentType "umbTextpage" -> _contentType.Id

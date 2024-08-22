@@ -1,14 +1,13 @@
 // Copyright (c) Umbraco.
 // See LICENSE for more details.
 
-using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
-using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Tests.Common.Attributes;
 using Umbraco.Cms.Tests.Common.Builders;
 using Umbraco.Cms.Tests.Common.Testing;
 using Umbraco.Cms.Tests.Integration.Testing;
@@ -93,6 +92,7 @@ public class MediaTypeServiceTests : UmbracoIntegrationTest
     }
 
     [Test]
+    [LongRunning]
     public void Deleting_Media_Types_With_Hierarchy_Of_Media_Items_Doesnt_Raise_Trashed_Event_For_Deleted_Items()
     {
         ContentNotificationHandler.MovedMediaToRecycleBin = MovedMediaToRecycleBin;
@@ -218,6 +218,34 @@ public class MediaTypeServiceTests : UmbracoIntegrationTest
             originalMediaType.PropertyTypes.First(x => x.Alias.StartsWith("umbracoFile")).Id);
         Assert.AreNotEqual(clonedMediaType.PropertyGroups.First(x => x.Name.StartsWith("Media")).Id,
             originalMediaType.PropertyGroups.First(x => x.Name.StartsWith("Media")).Id);
+    }
+
+    [TestCase(Constants.Conventions.MediaTypes.File)]
+    [TestCase(Constants.Conventions.MediaTypes.Folder)]
+    [TestCase(Constants.Conventions.MediaTypes.Image)]
+    public void Cannot_Delete_System_Media_Type(string mediaTypeAlias)
+    {
+        // Arrange
+        // Act
+        var mediaType = MediaTypeService.Get(mediaTypeAlias);
+        Assert.IsNotNull(mediaType);
+
+        // Assert
+        Assert.Throws<InvalidOperationException>(() => MediaTypeService.Delete(mediaType));
+    }
+
+    [TestCase(Constants.Conventions.MediaTypes.File)]
+    [TestCase(Constants.Conventions.MediaTypes.Folder)]
+    [TestCase(Constants.Conventions.MediaTypes.Image)]
+    public void Cannot_Change_Alias_Of_System_Media_Type(string mediaTypeAlias)
+    {
+        // Arrange
+        // Act
+        var mediaType = MediaTypeService.Get(mediaTypeAlias);
+        Assert.IsNotNull(mediaType);
+
+        // Assert
+        Assert.Throws<InvalidOperationException>(() => mediaType.Alias += "_updated");
     }
 
     public class ContentNotificationHandler :

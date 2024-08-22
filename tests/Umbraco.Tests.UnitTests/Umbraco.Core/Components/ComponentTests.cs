@@ -43,7 +43,7 @@ public class ComponentTests
 
     private static IServiceProvider MockFactory(Action<Mock<IServiceProvider>> setup = null)
     {
-        // FIXME: use IUmbracoDatabaseFactory vs UmbracoDatabaseFactory, clean it all up!
+        // TODO: use IUmbracoDatabaseFactory vs UmbracoDatabaseFactory, clean it all up!
         var mock = new Mock<IServiceProvider>();
         ILoggerFactory loggerFactory = NullLoggerFactory.Instance;
         var logger = loggerFactory.CreateLogger("GenericLogger");
@@ -157,7 +157,16 @@ public class ComponentTests
                 {
                     return Mock.Of<ILogger<ComponentCollection>>();
                 }
+                
+                if (type == typeof(ILogger<ComponentCollection>))
+                {
+                    return Mock.Of<ILogger<ComponentCollection>>();
+                }
 
+                if (type == typeof(IServiceProviderIsService))
+                {
+                    return Mock.Of<IServiceProviderIsService>();
+                }
                 throw new NotSupportedException(type.FullName);
             });
         });
@@ -314,6 +323,11 @@ public class ComponentTests
                 if (type == typeof(ILogger<ComponentCollection>))
                 {
                     return Mock.Of<ILogger<ComponentCollection>>();
+                }
+                
+                if (type == typeof(IServiceProviderIsService))
+                {
+                    return Mock.Of<IServiceProviderIsService>();
                 }
 
                 throw new NotSupportedException(type.FullName);
@@ -649,7 +663,7 @@ public class ComponentTests
     {
     }
 
-    // FIXME: move to Testing
+    // TODO: move to Testing
     private static Type[] TypeArray<T1>() => new[] { typeof(T1) };
 
     private static Type[] TypeArray<T1, T2>() => new[] { typeof(T1), typeof(T2) };

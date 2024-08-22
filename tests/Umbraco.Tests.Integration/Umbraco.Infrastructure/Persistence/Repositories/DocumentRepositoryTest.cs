@@ -21,6 +21,7 @@ using Umbraco.Cms.Infrastructure.Persistence;
 using Umbraco.Cms.Infrastructure.Persistence.Repositories.Implement;
 using Umbraco.Cms.Infrastructure.Scoping;
 using Umbraco.Cms.Persistence.SqlServer.Services;
+using Umbraco.Cms.Tests.Common.Attributes;
 using Umbraco.Cms.Tests.Common.Builders;
 using Umbraco.Cms.Tests.Common.Testing;
 using Umbraco.Cms.Tests.Integration.Testing;
@@ -64,7 +65,7 @@ public class DocumentRepositoryTest : UmbracoIntegrationTest
 
     public void CreateTestData()
     {
-        var template = TemplateBuilder.CreateTextPageTemplate();
+        var template = TemplateBuilder.CreateTextPageTemplate("defaultTemplate");
         FileService.SaveTemplate(template);
 
         // Create and Save ContentType "umbTextpage" -> (_contentType.Id)
@@ -742,6 +743,7 @@ public class DocumentRepositoryTest : UmbracoIntegrationTest
     }
 
     [Test]
+    [LongRunning]
     public void GetAllContentManyVersions()
     {
         IContent[] result;
@@ -822,7 +824,7 @@ public class DocumentRepositoryTest : UmbracoIntegrationTest
         ContentTypeService.Save(variantCt);
 
         invariantCt.AllowedContentTypes =
-            new[] { new ContentTypeSort(invariantCt.Id, 0), new ContentTypeSort(variantCt.Id, 1) };
+            new[] { new ContentTypeSort(invariantCt.Key, 0, invariantCt.Alias), new ContentTypeSort(variantCt.Key, 1, variantCt.Alias) };
         ContentTypeService.Save(invariantCt);
 
         // Create content

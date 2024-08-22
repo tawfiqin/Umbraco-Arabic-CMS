@@ -13,10 +13,10 @@ using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Infrastructure.Packaging;
 using Umbraco.Cms.Infrastructure.Persistence.Dtos;
+using Umbraco.Cms.Tests.Common.Attributes;
 using Umbraco.Cms.Tests.Common.Testing;
 using Umbraco.Cms.Tests.Integration.Testing;
 using Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services.Importing;
-using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Packaging;
 
@@ -25,12 +25,12 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Packaging;
 [UmbracoTest(Database = UmbracoTestOptions.Database.NewSchemaPerTest, WithApplication = true)]
 public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
 {
-    private ILocalizationService LocalizationService => GetRequiredService<ILocalizationService>();
+    private ILanguageService LanguageService => GetRequiredService<ILanguageService>();
 
-    private IMacroService MacroService => GetRequiredService<IMacroService>();
+    private IDictionaryItemService DictionaryItemService => GetRequiredService<IDictionaryItemService>();
 
     [HideFromTypeFinder]
-    [DataEditor("7e062c13-7c41-4ad9-b389-41d88aeef87c", "Editor1", "editor1")]
+    [DataEditor("7e062c13-7c41-4ad9-b389-41d88aeef87c")]
     public class Editor1 : DataEditor
     {
         public Editor1(IDataValueEditorFactory dataValueEditorFactory)
@@ -40,7 +40,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [HideFromTypeFinder]
-    [DataEditor("d15e1281-e456-4b24-aa86-1dda3e4299d5", "Editor2", "editor2")]
+    [DataEditor("d15e1281-e456-4b24-aa86-1dda3e4299d5")]
     public class Editor2 : DataEditor
     {
         public Editor2(IDataValueEditorFactory dataValueEditorFactory)
@@ -73,13 +73,20 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     ////     Builder.ComposeFileSystems();
     //// }
 
-    private PackageDataInstallation PackageDataInstallation => GetRequiredService<PackageDataInstallation>();
+    private IPackageDataInstallation PackageDataInstallation => GetRequiredService<IPackageDataInstallation>();
 
     private IMediaService MediaService => GetRequiredService<IMediaService>();
 
     private IMediaTypeService MediaTypeService => GetRequiredService<IMediaTypeService>();
 
+    public override void CreateTestData()
+    {
+        DeleteAllTemplateViewFiles();
+        base.CreateTestData();
+    }
+
     [Test]
+    [LongRunning]
     public void Can_Import_uBlogsy_ContentTypes_And_Verify_Structure()
     {
         // Arrange
@@ -127,6 +134,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [Test]
+    [LongRunning]
     public void Can_Import_Inherited_ContentTypes_And_Verify_PropertyTypes_UniqueIds()
     {
         // Arrange
@@ -153,6 +161,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [Test]
+    [LongRunning]
     public void Can_Import_Inherited_ContentTypes_And_Verify_PropertyGroups_And_PropertyTypes()
     {
         // Arrange
@@ -192,6 +201,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [Test]
+    [LongRunning]
     public void Can_Import_Template_Package_Xml()
     {
         // Arrange
@@ -261,6 +271,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [Test]
+    [LongRunning]
     public void Can_Import_StandardMvc_ContentTypes_Package_Xml()
     {
         // Arrange
@@ -299,6 +310,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [Test]
+    [LongRunning]
     public void Can_Import_StandardMvc_ContentTypes_And_Templates_Xml()
     {
         // Arrange
@@ -325,6 +337,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [Test]
+    [LongRunning]
     public void Can_Import_Fanoe_Starterkit_ContentTypes_And_Templates_Xml()
     {
         // Arrange
@@ -380,6 +393,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [Test]
+    [LongRunning]
     public void Can_Import_Media_Package_Xml()
     {
         // Arrange
@@ -506,6 +520,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [Test]
+    [LongRunning]
     public void Can_ReImport_Single_DocType()
     {
         // Arrange
@@ -540,7 +555,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
         var fileService = FileService;
 
         // kill default test data
-        fileService.DeleteTemplate("Textpage");
+        fileService.DeleteTemplate("defaultTemplate");
 
         // Act
         var numberOfTemplates = (from doc in templateElement.Elements("Template") select doc).Count();
@@ -558,7 +573,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [Test]
-    public void Can_Import_DictionaryItems()
+    public async Task Can_Import_DictionaryItems()
     {
         // Arrange
         const string expectedEnglishParentValue = "ParentValue";
@@ -569,20 +584,20 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
         var newPackageXml = XElement.Parse(ImportResources.Dictionary_Package);
         var dictionaryItemsElement = newPackageXml.Elements("DictionaryItems").First();
 
-        AddLanguages();
+        await AddLanguages();
 
         // Act
-        PackageDataInstallation.ImportDictionaryItems(dictionaryItemsElement.Elements("DictionaryItem"), -1);
+        PackageDataInstallation.ImportDictionaryItems(dictionaryItemsElement.Elements("DictionaryItem"), Constants.Security.SuperUserId);
 
         // Assert
-        AssertDictionaryItem("Parent", expectedEnglishParentValue, "en-GB");
-        AssertDictionaryItem("Parent", expectedNorwegianParentValue, "nb-NO");
-        AssertDictionaryItem("Child", expectedEnglishChildValue, "en-GB");
-        AssertDictionaryItem("Child", expectedNorwegianChildValue, "nb-NO");
+        await AssertDictionaryItem("Parent", expectedEnglishParentValue, "en-GB");
+        await AssertDictionaryItem("Parent", expectedNorwegianParentValue, "nb-NO");
+        await AssertDictionaryItem("Child", expectedEnglishChildValue, "en-GB");
+        await AssertDictionaryItem("Child", expectedNorwegianChildValue, "nb-NO");
     }
 
     [Test]
-    public void Can_Import_Nested_DictionaryItems()
+    public async Task Can_Import_Nested_DictionaryItems()
     {
         // Arrange
         const string parentKey = "Parent";
@@ -591,25 +606,25 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
         var newPackageXml = XElement.Parse(ImportResources.Dictionary_Package);
         var dictionaryItemsElement = newPackageXml.Elements("DictionaryItems").First();
 
-        AddLanguages();
+        await AddLanguages();
 
         // Act
         var dictionaryItems =
-            PackageDataInstallation.ImportDictionaryItems(dictionaryItemsElement.Elements("DictionaryItem"), -1);
+            PackageDataInstallation.ImportDictionaryItems(dictionaryItemsElement.Elements("DictionaryItem"), Constants.Security.SuperUserId);
 
         // Assert
-        Assert.That(LocalizationService.DictionaryItemExists(parentKey), "DictionaryItem parentKey does not exist");
-        Assert.That(LocalizationService.DictionaryItemExists(childKey), "DictionaryItem childKey does not exist");
+        Assert.That(await DictionaryItemService.ExistsAsync(parentKey), "DictionaryItem parentKey does not exist");
+        Assert.That(await DictionaryItemService.ExistsAsync(childKey), "DictionaryItem childKey does not exist");
 
-        var parentDictionaryItem = LocalizationService.GetDictionaryItemByKey(parentKey);
-        var childDictionaryItem = LocalizationService.GetDictionaryItemByKey(childKey);
+        var parentDictionaryItem = await DictionaryItemService.GetAsync(parentKey);
+        var childDictionaryItem = await DictionaryItemService.GetAsync(childKey);
 
         Assert.That(parentDictionaryItem.ParentId, Is.Not.EqualTo(childDictionaryItem.ParentId));
         Assert.That(childDictionaryItem.ParentId, Is.EqualTo(parentDictionaryItem.Key));
     }
 
     [Test]
-    public void WhenExistingDictionaryKey_ImportsNewChildren()
+    public async Task WhenExistingDictionaryKey_ImportsNewChildren()
     {
         // Arrange
         const string expectedEnglishParentValue = "ExistingParentValue";
@@ -620,21 +635,21 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
         var newPackageXml = XElement.Parse(ImportResources.Dictionary_Package);
         var dictionaryItemsElement = newPackageXml.Elements("DictionaryItems").First();
 
-        AddLanguages();
-        AddExistingEnglishAndNorwegianParentDictionaryItem(expectedEnglishParentValue, expectedNorwegianParentValue);
+        await AddLanguages();
+        await AddExistingEnglishAndNorwegianParentDictionaryItem(expectedEnglishParentValue, expectedNorwegianParentValue);
 
         // Act
-        PackageDataInstallation.ImportDictionaryItems(dictionaryItemsElement.Elements("DictionaryItem"), -1);
+        PackageDataInstallation.ImportDictionaryItems(dictionaryItemsElement.Elements("DictionaryItem"), Constants.Security.SuperUserId);
 
         // Assert
-        AssertDictionaryItem("Parent", expectedEnglishParentValue, "en-GB");
-        AssertDictionaryItem("Parent", expectedNorwegianParentValue, "nb-NO");
-        AssertDictionaryItem("Child", expectedEnglishChildValue, "en-GB");
-        AssertDictionaryItem("Child", expectedNorwegianChildValue, "nb-NO");
+        await AssertDictionaryItem("Parent", expectedEnglishParentValue, "en-GB");
+        await AssertDictionaryItem("Parent", expectedNorwegianParentValue, "nb-NO");
+        await AssertDictionaryItem("Child", expectedEnglishChildValue, "en-GB");
+        await AssertDictionaryItem("Child", expectedNorwegianChildValue, "nb-NO");
     }
 
     [Test]
-    public void WhenExistingDictionaryKey_OnlyAddsNewLanguages()
+    public async Task WhenExistingDictionaryKey_OnlyAddsNewLanguages()
     {
         // Arrange
         const string expectedEnglishParentValue = "ExistingParentValue";
@@ -645,29 +660,29 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
         var newPackageXml = XElement.Parse(ImportResources.Dictionary_Package);
         var dictionaryItemsElement = newPackageXml.Elements("DictionaryItems").First();
 
-        AddLanguages();
-        AddExistingEnglishParentDictionaryItem(expectedEnglishParentValue);
+        await AddLanguages();
+        await AddExistingEnglishParentDictionaryItem(expectedEnglishParentValue);
 
         // Act
-        PackageDataInstallation.ImportDictionaryItems(dictionaryItemsElement.Elements("DictionaryItem"), -1);
+        PackageDataInstallation.ImportDictionaryItems(dictionaryItemsElement.Elements("DictionaryItem"), Constants.Security.SuperUserId);
 
         // Assert
-        AssertDictionaryItem("Parent", expectedEnglishParentValue, "en-GB");
-        AssertDictionaryItem("Parent", expectedNorwegianParentValue, "nb-NO");
-        AssertDictionaryItem("Child", expectedEnglishChildValue, "en-GB");
-        AssertDictionaryItem("Child", expectedNorwegianChildValue, "nb-NO");
+        await AssertDictionaryItem("Parent", expectedEnglishParentValue, "en-GB");
+        await AssertDictionaryItem("Parent", expectedNorwegianParentValue, "nb-NO");
+        await AssertDictionaryItem("Child", expectedEnglishChildValue, "en-GB");
+        await AssertDictionaryItem("Child", expectedNorwegianChildValue, "nb-NO");
     }
 
     [Test]
-    public void Can_Import_Languages()
+    public async Task Can_Import_Languages()
     {
         // Arrange
         var newPackageXml = XElement.Parse(ImportResources.Dictionary_Package);
         var languageItemsElement = newPackageXml.Elements("Languages").First();
 
         // Act
-        var languages = PackageDataInstallation.ImportLanguages(languageItemsElement.Elements("Language"), -1);
-        var allLanguages = LocalizationService.GetAllLanguages();
+        var languages = PackageDataInstallation.ImportLanguages(languageItemsElement.Elements("Language"), Constants.Security.SuperUserId);
+        var allLanguages = await LanguageService.GetAllAsync();
 
         // Assert
         Assert.That(languages.Any(x => x.HasIdentity == false), Is.False);
@@ -678,53 +693,7 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
     }
 
     [Test]
-    public void Can_Import_Macros()
-    {
-        // Arrange
-        var strXml = ImportResources.uBlogsy_Package;
-        var xml = XElement.Parse(strXml);
-        var macrosElement = xml.Descendants("Macros").First();
-
-        // Act
-        var macros = PackageDataInstallation.ImportMacros(
-            macrosElement.Elements("macro"),
-            -1).ToList();
-
-        // Assert
-        Assert.That(macros.Any(), Is.True);
-
-        var allMacros = MacroService.GetAll().ToList();
-        foreach (var macro in macros)
-        {
-            Assert.That(allMacros.Any(x => x.Alias == macro.Alias), Is.True);
-        }
-    }
-
-    [Test]
-    public void Can_Import_Macros_With_Properties()
-    {
-        // Arrange
-        var strXml = ImportResources.XsltSearch_Package;
-        var xml = XElement.Parse(strXml);
-        var macrosElement = xml.Descendants("Macros").First();
-
-        // Act
-        var macros = PackageDataInstallation.ImportMacros(
-            macrosElement.Elements("macro"),
-            -1).ToList();
-
-        // Assert
-        Assert.That(macros.Any(), Is.True);
-        Assert.That(macros.First().Properties.Values.Any(), Is.True);
-
-        var allMacros = MacroService.GetAll().ToList();
-        foreach (var macro in macros)
-        {
-            Assert.That(allMacros.Any(x => x.Alias == macro.Alias), Is.True);
-        }
-    }
-
-    [Test]
+    [LongRunning]
     public void Can_Import_Package_With_Compositions()
     {
         // Arrange
@@ -847,55 +816,65 @@ public class PackageDataInstallationTests : UmbracoIntegrationTestWithContent
         });
     }
 
-    private void AddLanguages()
+    private async Task AddLanguages()
     {
         var norwegian = new Language("nb-NO", "Norwegian Bokmål (Norway)");
         var english = new Language("en-GB", "English (United Kingdom)");
-        LocalizationService.Save(norwegian, -1);
-        LocalizationService.Save(english, -1);
+        await LanguageService.CreateAsync(norwegian, Constants.Security.SuperUserKey);
+        await LanguageService.CreateAsync(english, Constants.Security.SuperUserKey);
     }
 
-    private void AssertDictionaryItem(string dictionaryItemName, string expectedValue, string cultureCode)
+    private async Task AssertDictionaryItem(string dictionaryItemName, string expectedValue, string cultureCode)
     {
-        Assert.That(LocalizationService.DictionaryItemExists(dictionaryItemName), "DictionaryItem key does not exist");
-        var dictionaryItem = LocalizationService.GetDictionaryItemByKey(dictionaryItemName);
-        var translation = dictionaryItem.Translations.SingleOrDefault(i => i.Language.IsoCode == cultureCode);
+        Assert.That(await DictionaryItemService.ExistsAsync(dictionaryItemName), "DictionaryItem key does not exist");
+        var dictionaryItem = await DictionaryItemService.GetAsync(dictionaryItemName);
+        var translation = dictionaryItem.Translations.SingleOrDefault(i => i.LanguageIsoCode == cultureCode);
         Assert.IsNotNull(translation, "Translation to {0} was not added", cultureCode);
         var value = translation.Value;
         Assert.That(value, Is.EqualTo(expectedValue), "Translation value was not set");
     }
 
-    private void AddExistingEnglishParentDictionaryItem(string expectedEnglishParentValue)
+    private async Task AddExistingEnglishParentDictionaryItem(string expectedEnglishParentValue)
     {
-        var languages = LocalizationService.GetAllLanguages().ToList();
+        var languages = (await LanguageService.GetAllAsync()).ToList();
         var englishLanguage = languages.Single(l => l.IsoCode == "en-GB");
-        LocalizationService.Save(
+
+        // This matches what is in the package.xml file
+        var key = new Guid("28f2e02a-8c66-4fcd-85e3-8524d551c0d3");
+        var result = await DictionaryItemService.CreateAsync(
             new DictionaryItem("Parent")
             {
-                // This matches what is in the package.xml file
-                Key = new Guid("28f2e02a-8c66-4fcd-85e3-8524d551c0d3"),
+                Key = key,
                 Translations = new List<IDictionaryTranslation>
                 {
                     new DictionaryTranslation(englishLanguage, expectedEnglishParentValue)
                 }
-            });
+            },
+            Constants.Security.SuperUserKey);
+        Assert.IsTrue(result.Success);
+        Assert.AreEqual(key, result.Result.Key);
     }
 
-    private void AddExistingEnglishAndNorwegianParentDictionaryItem(string expectedEnglishParentValue, string expectedNorwegianParentValue)
+    private async Task AddExistingEnglishAndNorwegianParentDictionaryItem(string expectedEnglishParentValue, string expectedNorwegianParentValue)
     {
-        var languages = LocalizationService.GetAllLanguages().ToList();
+        var languages = (await LanguageService.GetAllAsync()).ToList();
         var englishLanguage = languages.Single(l => l.IsoCode == "en-GB");
         var norwegianLanguage = languages.Single(l => l.IsoCode == "nb-NO");
-        LocalizationService.Save(
+
+        var key = new Guid("28f2e02a-8c66-4fcd-85e3-8524d551c0d3");
+        var result = await DictionaryItemService.CreateAsync(
             new DictionaryItem("Parent")
             {
                 // This matches what is in the package.xml file
-                Key = new Guid("28f2e02a-8c66-4fcd-85e3-8524d551c0d3"),
+                Key = key,
                 Translations = new List<IDictionaryTranslation>
                 {
                     new DictionaryTranslation(englishLanguage, expectedEnglishParentValue),
                     new DictionaryTranslation(norwegianLanguage, expectedNorwegianParentValue)
                 }
-            });
+            },
+            Constants.Security.SuperUserKey);
+        Assert.IsTrue(result.Success);
+        Assert.AreEqual(key, result.Result.Key);
     }
 }
