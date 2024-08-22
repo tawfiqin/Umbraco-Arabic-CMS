@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<language alias="ar" intName="Arabic" localName="العربية" lcid="" culture="ar-JO">
+<language alias="ar" intName="Arabic" localName="العربية" lcid="" culture="ar-PS">
   <creator>
     <name>Tawfiq abu Halawah</name>
     <link>https://github.com/tawfiqin</link>
@@ -232,50 +232,53 @@
     <key alias="noMediaLink">عنصر الوسائط لا يحتوي على رابط</key>
     <key alias="noProperties">لم يُضف محتوى لهذا العنصر</key>
     <key alias="otherElements">خصائص</key>
-    <key alias="parentNotPublished">هذا المستند نشر، ولكنه ليس مرئيا لأن أبوه '%0%' لم ينشر
+    <key alias="parentNotPublished">هذا المستند نُشر، ولكنه ليس مرئيا لأن مالكها '%0%' لم ينشر
 
     </key>
-    <key alias="parentCultureNotPublished">This culture is published but is not visible because it is unpublished on
-      parent '%0%'
+    <key alias="parentCultureNotPublished">
+      هذه الثقافة منشورة ولكنها ليست مرئية لأنها غير منشورة مع مالك
+       '%0%'
     </key>
-    <key alias="parentNotPublishedAnomaly">This document is published but is not in the cache</key>
-    <key alias="getUrlException">Could not get the URL</key>
-    <key alias="routeError">This document is published but its URL would collide with content %0%</key>
-    <key alias="routeErrorCannotRoute">This document is published but its URL cannot be routed</key>
-    <key alias="publish">Publish</key>
-    <key alias="published">Published</key>
-    <key alias="publishedPendingChanges">Published (pending changes)</key>
-    <key alias="publishStatus">Publication Status</key>
+    <key alias="parentNotPublishedAnomaly">هذا المستند منشور ولكنه ليس في التخزين المؤقت</key>
+    <key alias="getUrlException">لم ينجح في استرداد الرابط URL</key>
+    <key alias="routeError">
+    هذا المستند منشور ولكن رابطه سيتعارض مع محتوى:
+     %0%</key>
+    <key alias="routeErrorCannotRoute">هذا المستند منشور ولكن رابطه لا يمكن تحويله</key>
+    <key alias="publish">انشر</key>
+    <key alias="published">نُشرَ</key>
+    <key alias="publishedPendingChanges">نشرت (تعديلات في الانتظار)</key>
+    <key alias="publishStatus">حالة النشر</key>
     <key alias="publishDescendantsHelp">
       <![CDATA[Publish <strong>%0%</strong> and all content items underneath and thereby making their content publicly available.]]></key>
     <key alias="publishDescendantsWithVariantsHelp">
       <![CDATA[Publish variants and variants of same type underneath and thereby making their content publicly available.]]></key>
-    <key alias="releaseDate">Publish at</key>
-    <key alias="unpublishDate">Unpublish at</key>
-    <key alias="removeDate">Clear Date</key>
-    <key alias="setDate">Set date</key>
-    <key alias="sortDone">Sortorder is updated</key>
-    <key alias="sortHelp">To sort the nodes, simply drag the nodes or click one of the column headers. You can select
-      multiple nodes by holding the "shift" or "control" key while selecting
+    <key alias="releaseDate">نُشرت في</key>
+    <key alias="unpublishDate">الغي النشر في</key>
+    <key alias="removeDate">تاريخ الحذف</key>
+    <key alias="setDate">تاريخ الوضع</key>
+    <key alias="sortDone">حدث أمر الترتيب</key>
+    <key alias="sortHelp">
+      لترتيب العقد، ببساطة اسحب العقدة أو اضغط على أحد عناوين الأعمدة. ويمكن اختيار أكثر من عقدة بالضغط باستمرار على مفتاح "shift" أو "ctrl" اثناء الاختيار
     </key>
-    <key alias="statistics">Statistics</key>
-    <key alias="titleOptional">Title (optional)</key>
-    <key alias="altTextOptional">Alternative text (optional)</key>
-    <key alias="captionTextOptional">Caption (optional)</key>
-    <key alias="type">Type</key>
-    <key alias="unpublish">Unpublish</key>
-    <key alias="unpublished">Unpublished</key>
-    <key alias="notCreated">Not created</key>
-    <key alias="updateDate">Last edited</key>
-    <key alias="updateDateDesc" version="7.0">Date/time this document was edited</key>
-    <key alias="uploadClear">Remove file(s)</key>
-    <key alias="uploadClearImageContext">Click here to remove the image from the media item</key>
-    <key alias="uploadClearFileContext">Click here to remove the file from the media item</key>
-    <key alias="urls">Link to document</key>
-    <key alias="memberof">Member of group(s)</key>
-    <key alias="notmemberof">Not a member of group(s)</key>
-    <key alias="childItems" version="7.0">Child items</key>
-    <key alias="target" version="7.0">Target</key>
+    <key alias="statistics">احصائيات</key>
+    <key alias="titleOptional">العنوان (اختياري)</key>
+    <key alias="altTextOptional">النص البديل (اختياري)</key>
+    <key alias="captionTextOptional">التسمية التوضيحية (اختياري)</key>
+    <key alias="type">النوع</key>
+    <key alias="unpublish">ألغ النشر</key>
+    <key alias="unpublished">أُلغيَ نشره</key>
+    <key alias="notCreated">Not created لم يُصنع</key>
+    <key alias="updateDate">Last edited آخر تعديل</key>
+    <key alias="updateDateDesc" version="7.0">Date/time this document was edited تاريخ ووقت تعديل هذا المستند</key>
+    <key alias="uploadClear">Remove file(s)أزل الملفات</key>
+    <key alias="uploadClearImageContext">Click here to remove the image from the media item اضغط هنا لإزالة الصورة من عنصر الوسائط</key>
+    <key alias="uploadClearFileContext">Click here to remove the file from the media item اضغط هنا لإزالة الملف من عنصر الوسائط</key>
+    <key alias="urls">Link to document رابط المستند</key>
+    <key alias="memberof">Member of group(s) عضو في مجموعة أو مجموعات</key>
+    <key alias="notmemberof">Not a member of group(s) ليس عضوا في مجموعة</key>
+    <key alias="childItems" version="7.0">Child items عناصر أبناء</key>
+    <key alias="target" version="7.0">Target الهدف</key>
     <key alias="scheduledPublishServerTime">This translates to the following time on the server:</key>
     <key alias="scheduledPublishDocumentation">
       <![CDATA[<a href="https://docs.umbraco.com/umbraco-cms/fundamentals/data/scheduled-publishing#timezones" target="_blank" rel="noopener">What does this mean?</a>]]></key>
