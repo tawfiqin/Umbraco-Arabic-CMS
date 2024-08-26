@@ -77,19 +77,19 @@
     <key alias="routeErrorCannotRoute">هذا المستند منشور ولكن رابطه لا يمكن إعادة تحويله</key>
   </area>
   <area alias="member">
-    <key alias="duplicateMemberLogin">A member with this login already exists</key>
-    <key alias="memberHasGroup">The member is already in group '%0%'</key>
-    <key alias="memberHasPassword">The member already has a password set</key>
-    <key alias="memberLockoutNotEnabled">Lockout is not enabled for this member</key>
-    <key alias="memberNotInGroup">The member is not in group '%0%'</key>
+    <key alias="duplicateMemberLogin">معلومات الدخول لهذا العضو موجودة مسبقا</key>
+    <key alias="memberHasGroup">هذا العضو موجود في مجموعة '%0%'</key>
+    <key alias="memberHasPassword">كلمة المرور لهذا العضو موضوعة مسبقا</key>
+    <key alias="memberLockoutNotEnabled"> القفل ليس مفعلا لهذا العضو</key>
+    <key alias="memberNotInGroup">هذا العضو ليس في مجموعة  '%0%'</key>
   </area>
   <area alias="errors">
-    <key alias="defaultError">An unknown failure has occurred</key>
-    <key alias="concurrencyError">Optimistic concurrency failure, object has been modified</key>
+    <key alias="defaultError">An unknown failure has occurred حصل خطا غير معروف</key>
+    <key alias="concurrencyError">Optimistic concurrency failure, object has been modified خطأ في التزامن </key>
   </area>
   <area alias="login">
-    <key alias="resetCodeExpired">The link you have clicked on is invalid or has expired</key>
-    <key alias="resetPasswordEmailCopySubject">Umbraco: Reset Password</key>
+    <key alias="resetCodeExpired">الرابط الذي ضغط عليه غير صحيح أو  انتهت صلاحيته</key>
+    <key alias="resetPasswordEmailCopySubject">Umbraco: إعادة ضبط كلمة المرور</key>
     <key alias="resetPasswordEmailCopyFormat"><![CDATA[
         <html>
 			<head>
@@ -127,10 +127,11 @@
 <tr>
 <td style='line-height: 24px; font-family: sans-serif; font-size: 14px; vertical-align: top;' valign='top'>
 <h1 style='color: #392F54; font-family: sans-serif; font-weight: bold; line-height: 1.4; font-size: 24px; text-align: left; text-transform: capitalize; margin: 0 0 30px;' align='left'>
-															Password reset requested
+															طلب إعادة ضبط كلمة المرور
 														</h1>
 <p style='color: #392F54; font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0 0 15px;'>
-															Your username to login to the Umbraco backoffice is: <strong>%0%</strong>
+                              اسم المستخدم للدخول إلى
+                               Umbraco backoffice is: <strong>%0%</strong>
 </p>
 <p style='color: #392F54; font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0 0 15px;'>
 <table border='0' cellpadding='0' cellspacing='0' style='border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;'>
@@ -138,7 +139,7 @@
 <tr>
 <td style='font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; text-align: center; background: #35C786;' align='center' bgcolor='#35C786' valign='top'>
 <a href='%1%' target='_blank' rel='noopener' style='color: #FFFFFF; text-decoration: none; -ms-word-break: break-all; word-break: break-all; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; text-transform: capitalize; background: #35C786; margin: 0; padding: 12px 30px; border: 1px solid #35c786;'>
-																				Click this link to reset your password
+                                        اضغط على هذا الرابط لإعادة ضبط كلمة المرور
 																			</a>
 </td>
 </tr>
@@ -174,21 +175,28 @@
   </area>
   <area alias="notifications">
     <key alias="mailBody"><![CDATA[
-      Hi %0%
+      مرحبا
+       %0%
 
-      This is an automated mail to inform you that the task '%1%'
-      has been performed on the page '%2%'
-      by the user '%3%'
+      هذا إيميل تلقائي ليخبرك أن المهمة
+      '%1%'
+      اجريت على الصفحة
+       '%2%'
+      من قبل المستخدم
+      '%3%'
 
-      Go to http://%4%/#/content/content/edit/%5% to edit.
+      للتعديل اذهب إلى
+       http://%4%/#/content/content/edit/%5%
 
       %6%
+      نتمنى لك يوما طيبا
 
-      Have a nice day!
-
-      Cheers from the Umbraco robot
+      تحياتنا من
+      Umbraco robot
     ]]>    </key>
-    <key alias="mailBodyVariantSummary">The following languages have been modified %0%</key>
+    <key alias="mailBodyVariantSummary">
+    اللغات اللاحقة عدلت
+    %0%</key>
     <key alias="mailBodyHtml"><![CDATA[
         <html>
 			<head>
@@ -226,10 +234,16 @@
 <tr>
 <td style='line-height: 24px; font-family: sans-serif; font-size: 14px; vertical-align: top;' valign='top'>
 <h1 style='color: #392F54; font-family: sans-serif; font-weight: bold; line-height: 1.4; font-size: 24px; text-align: left; text-transform: capitalize; margin: 0 0 30px;' align='left'>
-															Hi %0%,
+															مرحبا
+                               %0%,
 														</h1>
 <p style='color: #392F54; font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0 0 15px;'>
-															This is an automated mail to inform you that the task <strong>'%1%'</strong> has been performed on the page <a style="color: #392F54; text-decoration: none; -ms-word-break: break-all; word-break: break-all;" href="http://%4%/#/content/content/edit/%5%"><strong>'%2%'</strong></a> by the user <strong>'%3%'</strong>
+                              هذا إيميل تلقائي ليعلمك أن المهمة
+                               <strong>'%1%'</strong>
+                               انجزت على الصفحة
+                               <a style="color: #392F54; text-decoration: none; -ms-word-break: break-all; word-break: break-all;" href="http://%4%/#/content/content/edit/%5%"><strong>'%2%'</strong></a>
+                                بواسطة المستخدم
+                                 <strong>'%3%'</strong>
 </p>
 <table border='0' cellpadding='0' cellspacing='0' class='btn btn-primary' style='border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;'>
 <tbody>
@@ -243,7 +257,7 @@
 </tbody>
 </table>
 <p style='color: #392F54; font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0 0 15px;'>
-<h3>Update summary:</h3>
+<h3>:ملخص التحديث</h3>
 															%6%
 														</p>
 <p style='color: #392F54; font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0 0 15px;'>
@@ -265,7 +279,7 @@
 </body>
 </html>
 	]]>    </key>
-    <key alias="mailBodyVariantHtmlSummary"><![CDATA[<p>The following languages have been modified:</p>
+    <key alias="mailBodyVariantHtmlSummary"><![CDATA[<p>اللغات التالية عدلت:</p>
         %0%
     ]]>    </key>
     <key alias="mailSubject">[%0%] Notification about %1% performed on %2%</key>
